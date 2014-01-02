@@ -8,26 +8,32 @@
         </style>
     </head>
 <body>
-
-<h1>Anagramish Thoughts</h1>
-
-Sunshine, daisies, butter mellow,
-<i>Turn this stupid fat rat yellow!</i>
-
+<div class="container">
+  <div class="row banner">
+    <div class="span12">
+      <h1>Anagramish Thoughts</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12" id="thought-display"></div>
+  </div>
+  <div class="row">
+    <div class="span6"></div>
+    <div class="span6"><h5>CLICK ON THE HAPPY THOUGHT FOR ANOTHER HAPPY THOUGHT</h5></div>
+</div>
 
 <div class="thoughts">
   <ul>
-    <li class="thinks">The road goes ever on and on</li>
-    <li class="thinks">Down from the door where it began</li>
-    <li class="thinks">Now far ahead the road has gone</li>
-    <li class="thinks">And I must follow if I can</li>
-    <li class="thinks">Pursuing it with weary feet</li>
-    <li class="thinks">Until it meets some larger way</li>
-    <li class="thinks">Where many paths and errands meet</li>
-    <li class="thinks">And wither then? I cannot say</li>
+    <% thoughts = n_random_thoughts 100 %>
+    <% thoughts.each do |t| %>
+        <li class="thinks"><%= "Happy thought: #{t}" %></li>
+    <% end %>
   </ul>
-</div>
 
 <div id="click_time">
 </div>
+
+</div>
+
+
 
