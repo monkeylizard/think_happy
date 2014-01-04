@@ -94,7 +94,7 @@ window.onload = function() {
 	    new_ht = Math.max(h, ht);
 	    console.log(h, new_ht);
 	    if (ht != h) {
-		$("#thought-display").css("height", new_ht + 20);
+		$("#thought-display").animate({height: new_ht.toString()}, 200);
 		svg.transition().attr("height", new_ht);
 	    }
 	}
