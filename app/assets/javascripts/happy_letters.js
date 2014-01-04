@@ -11,6 +11,11 @@ window.onload = function() {
 	    .attr("height", h)
 	    .attr("width", w)
 	    .attr("id", "svgMain");
+
+	$(window).resize(function() {
+	    w = hold.innerWidth();
+	    svg.transition().attr("width", w);
+	});
 	
 	// generates a random number in an inclusive range
 	
