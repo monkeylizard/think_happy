@@ -1,11 +1,20 @@
 window.onload = function() {
     $(document).ready(function() {
 	
+
+	var buf = 50;
+	var isMobile = false;
+	if ( window.innerHeight > window.innerWidth ) {
+	    isMobile = true;
+	}
+	if ( isMobile ) { 
+	    buf = 30;
+	    $('body').css('padding', '45px');
+	}
 	var hold = $('#thought-display');
 	var w = hold.innerWidth();
 	var h = window.innerHeight / 2;
-	var buf = 50;
-	
+ 	
 	svg = d3.select("#thought-display")
 	    .append("svg")
 	    .attr("height", h)
@@ -28,6 +37,11 @@ window.onload = function() {
 	
 	var create_let = function(letter, coord, name, color, delay) {
 	    label = ".C" + rand_int(0, 8000);
+	    if ( isMobile ) {
+		var size = "1em";
+	    } else {
+		var size = "2em";
+	    }
 	    
 	    lett = svg.selectAll(label)
 		.data([letter])
@@ -38,7 +52,7 @@ window.onload = function() {
 		.attr("y", coord[1])
 		.text(letter)
 		.attr("font-family", "sans-serif")
-		.attr("font-size", "2em")
+		.attr("font-size", size)
 		.attr("fill", color)
 		.attr("opacity", 0);
 	    
@@ -78,7 +92,7 @@ window.onload = function() {
 		return -1;
 	    }
 	    
-	    for ( i = cutoff; i >= startpos; i-- ) {
+	    for ( i = cutoff; i > startpos; i-- ) {
 		if ( sentence[i] == " " ) {
 		    cutoff = i;
 		    break;
@@ -92,7 +106,6 @@ window.onload = function() {
 	    h = window.innerHeight / 2
 	    ht = buf * 2 + num_rows * spacing;
 	    new_ht = Math.max(h, ht);
-	    console.log(h, new_ht);
 	    if (ht != h) {
 		$("#thought-display").animate({height: new_ht.toString()}, 200);
 		svg.transition().attr("height", new_ht);
@@ -102,6 +115,8 @@ window.onload = function() {
 	  
 	var coord_maker = function(sentence) {
 	    var spacing = 35;
+	    if ( isMobile ) { spacing = 18; }
+	    
 	    var endl = w - buf;
 	    
 	    var breaks = [0];
@@ -115,7 +130,9 @@ window.onload = function() {
 		    breaks.push(brk);
 		}
 	    }
-	    recalculate_height(breaks.length, spacing);
+	    if ( !isMobile ) {
+		recalculate_height(breaks.length, spacing);
+	    }
 
 	    return function(index) {
 		var base_x = buf + index * spacing;
