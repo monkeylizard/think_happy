@@ -87,6 +87,17 @@ window.onload = function() {
 	    return cutoff;
 	}
 	
+
+	var recalculate_height = function(num_rows, spacing) {
+	    h = window.innerHeight / 2
+	    ht = buf * 2 + num_rows * spacing;
+	    new_ht = Math.max(h, ht);
+	    console.log(h, new_ht);
+	    if (ht != h) {
+		$("#thought-display").css("height", new_ht + 20);
+		svg.transition().attr("height", new_ht);
+	    }
+	}
 	
 	  
 	var coord_maker = function(sentence) {
@@ -104,6 +115,7 @@ window.onload = function() {
 		    breaks.push(brk);
 		}
 	    }
+	    recalculate_height(breaks.length, spacing);
 
 	    return function(index) {
 		var base_x = buf + index * spacing;
