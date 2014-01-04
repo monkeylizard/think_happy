@@ -26,7 +26,7 @@ window.onload = function() {
 	
 	// CRUD functions for letters
 	
-	var create_let = function(letter, coord, name, color) {
+	var create_let = function(letter, coord, name, color, delay) {
 	    label = ".C" + rand_int(0, 8000);
 	    
 	    lett = svg.selectAll(label)
@@ -42,7 +42,7 @@ window.onload = function() {
 		.attr("fill", color)
 		.attr("opacity", 0);
 	    
-	    lett.transition().duration(1000).delay(900).attr("opacity", 1);
+	    lett.transition().duration(1000).delay(delay).attr("opacity", 1);
 	    return lett;
 	}
 	
@@ -137,6 +137,9 @@ window.onload = function() {
 		
 		var x = base_x - ( cutoff + correct ) * spacing;
 		var y = buf + row * spacing;
+		if (sentence[index].toUpperCase() == "I" ) {
+		    x += spacing / 7;
+		}
 		return [x, y];
 	    }
 	}
@@ -186,7 +189,7 @@ window.onload = function() {
 	}
 	
 	
-	var draw_sentence = function(sentence, indices, color) {
+	var draw_sentence = function(sentence, indices, color, delay) {
 	    var coords = coord_maker(sentence);
 	    var counter_index = []
 	    for ( i = 0; i < indices.length; i++ ) {
@@ -198,7 +201,7 @@ window.onload = function() {
 	    for ( i = 0; i < sentence.length; i++ ) {
 		if ( !is_in(i, counter_index ) ) {
 		    name = "A" + i;
-		    create_let(sentence[i], coords(i), name, color);
+		    create_let(sentence[i], coords(i), name, color, delay);
 		}
 	    }
 	}
@@ -263,7 +266,7 @@ window.onload = function() {
 	    indices = get_shared(sen1, sen2);
 	    kill_old(indices);
 	    move_old(sen2, indices);
-	    draw_sentence(sen2, indices, color);
+	    draw_sentence(sen2, indices, color, 1000);
 	}
 	
 	// Timekeeping
@@ -299,7 +302,7 @@ window.onload = function() {
 	}
 	
 	initial_indices = []
-	draw_sentence(sentences[0], initial_indices, "white");
+	draw_sentence(sentences[0], initial_indices, "white", 200);
 	mark_time();
 	
 	
