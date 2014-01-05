@@ -40,7 +40,7 @@ window.onload = function() {
 	    if ( isMobile ) {
 		var size = "1em";
 	    } else {
-		var size = "2em";
+		var size = "2.7em";
 	    }
 	    
 	    lett = svg.selectAll(label)
@@ -114,10 +114,10 @@ window.onload = function() {
 	
 	  
 	var coord_maker = function(sentence) {
-	    var spacing = 35;
+	    var spacing = 43;
 	    if ( isMobile ) { spacing = 18; }
 	    
-	    var endl = w - buf;
+	    var endl = w;
 	    
 	    var breaks = [0];
 	    var check = true;
